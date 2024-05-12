@@ -1,4 +1,5 @@
-import java.util.time.*;
+import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 public class DateOfBirth {
@@ -6,27 +7,25 @@ public class DateOfBirth {
 		Scanner input = new Scanner(System.in);
 	
 
-		System.out.print("Enter date of birth: ");
+		System.out.print("Enter date of birth format: dd/MM/yyy: ");
 		String dateOfBirth = input.nextLine();
 
-		int age = date(dateOfBirth);
-		System.out.print(age + " years old");
+		int age = yearCalculator(dateOfBirth);
+		System.out.println(age + " years old");
 	}
 
 
-	public static int date(String dateOfBirth){
-		DateTimeFornattter format = DateTimeformatter.ofPattern("dd.mm.yyyy);
-		LocalDate birthDayay = LocalDate.parse(dateOfBirth,format);
-
+		public static int yearCalculator(String dateOfBirth){
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		LocalDate birthDay = LocalDate.parse(dateOfBirth,format);
 		
-		int newdateOfBirth = Integer.valueOf(dateOfBirth);
 		LocalDate now = LocalDate.now();
-		period age = period.between(birthday,now
+		Period age = Period.between(birthDay,now);
 
 		return age.getYears();
 
 
-	}
+		}
 }
 
 
