@@ -1,10 +1,16 @@
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 public class Bank{
+	//ArrayList <Double> account = new Arraylist<Double>(); 
 	public static void main(String... args){
 		Scanner input = new Scanner(System.in);
 		
-		
+		//account.add(balance)
+
+		//System.out.print(>.repeat(50));	
+		System.out.print("WELCOME TO ESTHER'S ATM MACHINE");
+		//System.out.print(>.repeat(50));
 
 		String  options = """
 		press
@@ -19,24 +25,26 @@ public class Bank{
 		System.out.print(options);
 
 
-		System.out.print("Enter option: ");s
+		System.out.print("Enter option: ");
 		int number = input.nextInt();
 
 		switch(number) {
 			case 1: createAccount();
 			break;
-			case 2: depositeAmount();
+			case 2: closeAccount();
 			break;
+			case 3: depositAmount();
 
-			default: System.out.print("invalid");
+			default: System.out.println("invalid");
 
 		}
 
 		
 	}
-	int pin;
-	int balance = 0;
+	
 	public static void createAccount(){
+		
+		
 		Scanner input = new Scanner(System.in);
 		Random random = new Random();
 	
@@ -51,7 +59,7 @@ public class Bank{
 		System.out.println("This is your account number: " + accountNumber);
 
 		System.out.print("create a pin: ");
-		pin = input.nextInt();
+		int pin = input.nextInt();
 	
 			
 		System.out.println("Account created successfully");
@@ -63,30 +71,58 @@ public class Bank{
 	
 
 	}
-	public static void CloseAccount(){
+	public static void closeAccount(){
 		Scanner input = new Scanner(System.in);
 		System.out.print("Account clossed");
 	}
-	public static void depositMoney(){
+	public static void depositAmount(){
+		double balance = 0;
 		Scanner input = new Scanner(System.in);
 
 		System.out.print("Enter your account number: ");
-		accountNumber = input.nextInt();
+		int accountNumber = input.nextInt();
 
 		System.out.print("Enter your pin: ");
-		pin = input.nextInt();
+		int pin = input.nextInt();
 
 		System.out.print("Enter the amount you want to deposit: $");
 		double depositAmount = input.nextDouble();
-
 		if(depositAmount > 0){
-			System.out.print("Deposit Successful");
+			System.out.println("Deposit Successful");
 
-			balance = depositAmount + balance;;
-		}
+			int balance = depositAmount + balance;
+			System.out.println("your balance is " + balance);
+	
+
+			}
 	}
 
 
+	public static void withdrawalAmount(){
+		Scanner input = new Scanner(System.in);
+		double balance = 0;
 
+		System.out.print("put your pin");
+		int pin = input.nextInt();
+	
+		System.out.print("Enter the amount you want to withdraw: $");
+		double withdaw = input.nextDouble();
+			if(withdraw > 0){
+				System.out.println("withdrawal Successful");
+				 depositAmount() = balance - withdraw;
+				System.out.println("your balance is " + depositAmount);
+			}
+
+
+
+	}
+	
+
+
+	
+	
+	
 }
 
+
+	
