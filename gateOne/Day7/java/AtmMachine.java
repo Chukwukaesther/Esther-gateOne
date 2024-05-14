@@ -1,18 +1,22 @@
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 public class Bank{
-	//ArrayList <Double> account = new Arraylist<Double>(); 
+	private static double balance = 0;
+	private static int pin;
+	private static double secondBalance = 0; 
 	public static void main(String... args){
-		Scanner input = new Scanner(System.in);
+		options();
 		
-		//account.add(balance)
+	}
+	public static void options(){
+	Scanner input = new Scanner(System.in);
 
-		//System.out.print(>.repeat(50));	
-		System.out.print("WELCOME TO ESTHER'S ATM MACHINE");
-		//System.out.print(>.repeat(50));
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");	
+		System.out.println("WELCOME TO ESTHER'S ATM MACHINE");
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 
-		String  options = """
+		
+		String  option = """
 		press
 		1. create Account
 		2. close account
@@ -22,7 +26,7 @@ public class Bank{
 		6. Transfer
 		7. Change pin
 		 """;
-		System.out.print(options);
+		System.out.print(option);
 
 
 		System.out.print("Enter option: ");
@@ -31,20 +35,28 @@ public class Bank{
 		switch(number) {
 			case 1: createAccount();
 			break;
+
 			case 2: closeAccount();
 			break;
+
 			case 3: depositAmount();
+			break;
+
+			case 4: withdrawalAmount();
+			break;
+
+			case 5: checkAccountBalance();
+			break;
+			
+			case 6: transfer();
+			break;	
 
 			default: System.out.println("invalid");
 
-		}
-
-		
 	}
-	
+}
+
 	public static void createAccount(){
-		
-		
 		Scanner input = new Scanner(System.in);
 		Random random = new Random();
 	
@@ -59,22 +71,36 @@ public class Bank{
 		System.out.println("This is your account number: " + accountNumber);
 
 		System.out.print("create a pin: ");
-		int pin = input.nextInt();
+		pin = input.nextInt();
 	
 			
 		System.out.println("Account created successfully");
 		System.out.println("FirstName: " + firstName);
 		System.out.println("LastName: " + lastName);
 		System.out.println("Pin: " + pin);
-		
-	
-	
+		nextTransaction();
+			
 
 	}
-	public static void closeAccount(){
-		Scanner input = new Scanner(System.in);
-		System.out.print("Account clossed");
+	public static void nextTransaction(){
+	Scanner input = new Scanner(System.in);
+	System.out.print("Do you want to perform another transaction? ");
+		String userInput = input.nextLine();
+		if(userInput.equalsIgnoreCase("yes")){
+			options();
+		}else if(userInput.equalsIgnoreCase("no")){
+			//exit();
+		}
+
 	}
+
+	public static void closeAccount(){
+		System.out.print("Account clossed");
+		nextTransaction();
+			
+	}
+
+
 	public static void depositAmount(){
 		double balance = 0;
 		Scanner input = new Scanner(System.in);
@@ -83,15 +109,17 @@ public class Bank{
 		int accountNumber = input.nextInt();
 
 		System.out.print("Enter your pin: ");
-		int pin = input.nextInt();
+		pin = input.nextInt();
 
 		System.out.print("Enter the amount you want to deposit: $");
 		double depositAmount = input.nextDouble();
 		if(depositAmount > 0){
 			System.out.println("Deposit Successful");
 
-			int balance = depositAmount + balance;
+			balance = depositAmount + balance;
 			System.out.println("your balance is " + balance);
+			nextTransaction();
+			
 	
 
 			}
@@ -100,24 +128,54 @@ public class Bank{
 
 	public static void withdrawalAmount(){
 		Scanner input = new Scanner(System.in);
-		double balance = 0;
-
-		System.out.print("put your pin");
-		int pin = input.nextInt();
+		double withdrawAmount = 0;
+		System.out.print("put your pin: ");
+		pin = input.nextInt();
 	
 		System.out.print("Enter the amount you want to withdraw: $");
-		double withdaw = input.nextDouble();
-			if(withdraw > 0){
+		withdrawAmount = input.nextDouble();
+			if(withdrawAmount > 0){
 				System.out.println("withdrawal Successful");
-				 depositAmount() = balance - withdraw;
-				System.out.println("your balance is " + depositAmount);
+				secondBalance = balance - withdrawAmount;
+				System.out.println("your Balance is " + secondBalance);
+				nextTransaction();
+			
 			}
+	}
 
 
+
+
+
+	public static void checkAccountBalance(){
+		Scanner input = new Scanner(System.in);
+	
+		System.out.println("Enter your pin");
+		pin = input.nextInt();
+		System.out.println("your account balance is: " + secondBalance);
+		nextTransaction();
+			
 
 	}
-	
 
+
+
+	public static void transfer(){
+		Scanner input = new Scanner(System.in);
+
+		System.out.print("How much do you want to transfer");
+		double transferAmount = input.nextDouble();
+		if(transferAmount < 0){
+			double totalBalance = secondBalance - transferAmount;
+			System.out.print(totalBalance);
+			nextTransaction();
+			
+			
+		}
+
+	}
+		
+		
 
 	
 	
