@@ -89,7 +89,7 @@ public class AtmMachine{
 		if(userInput.equalsIgnoreCase("yes")){
 			options();
 		}else if(userInput.equalsIgnoreCase("no")){
-			//exit();
+		
 		}
 
 	}
