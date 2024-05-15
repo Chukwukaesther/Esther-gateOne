@@ -1,6 +1,6 @@
 import java.util.Random;
 import java.util.Scanner;
-public class Bank{
+public class AtmMachine{
 	private static double balance = 0;
 	private static int pin;
 	private static double secondBalance = 0; 
