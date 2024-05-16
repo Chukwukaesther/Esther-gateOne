@@ -2,8 +2,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 public class PeriodCalculator {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    public static void main(String... args) {
+        Scanner input = new Scanner(System.in);
 	
 
 
@@ -15,9 +15,12 @@ public class PeriodCalculator {
 	System.out.println("");
 	System.out.println("");
 
-        
+        String startDate;
+	System.out.println("How long do your period last?");
+        int periodLength = input.nextInt();
+
         System.out.println("Enter the start date of your menstrual cycle (in dd/MM/yyyy format):");
-        String startDate = scanner.nextLine();
+        startDate = input.nextLine();
 		
 	System.out.println("Enter the cycle length: ");
 	int cycleLength = input.nextInt();
@@ -31,25 +34,25 @@ public class PeriodCalculator {
 
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 			String myFormat = localDate.format(formatter);
-			LocalDate startDate = LocalDate.parse(firstDate, formatter);
+			LocalDate startDates = LocalDate.parse(startDate, formatter);
 		
-			LocalDate nextPeriod = firstDates.plusDays(cycleLength);
+			LocalDate nextPeriod = startDates.plusDays(cycleLength);
 			System.out.println("Next Period: " + nextPeriod);
 
 		
 			LocalDate flowDates = nextPeriod.plusDays(periodLength);
-			System.out.println("Expected period duration:" + nextPeriod + "-" +  flowDates);
+			System.out.println("Next period duration:" + nextPeriod + "-" +  flowDates);
 
 		
-			LocalDate ovulationDate = firstDates.minusDays(14);
+			LocalDate ovulationDate = startDates.minusDays(14);
 			LocalDate fertilePeriod = ovulationDate.minusDays(5);
-			LocalDate fertilePeriod2 = ovulationDate.plusDays(1);
+			LocalDate fertilePeriodTwo = ovulationDate.plusDays(1);
 
-			LocalDate safePeriod = firstDates.plusDays(14);
+			LocalDate safePeriod = startDates.plusDays(14);
 		
 			System.out.println("Ovulation Day next Month: " +ovulationDate);
-			System.out.println("Your fertile period is from:" + fertilePeriod + "-" + fertilePeriod2); 
-			System.out.println("Safe Period Days: " + startDate  + "-" +  safePeriod);
+			System.out.println("fertile period is from:" + fertilePeriod + "-" + fertilePeriodTwo); 
+			System.out.println("Safe Period Days: " + startDates  + "-" +  safePeriod);
 		
 	}
 }
