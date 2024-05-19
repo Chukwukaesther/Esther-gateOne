@@ -1,23 +1,24 @@
 import java.util.Random;
 import java.util.Scanner;
 public class AtmMachine{
-	private static double balance = 0;
+
+	private static double balance = 0.00;
 	private static int pin;
-	private static double secondBalance = 0; 
+	private static double remainingBalance = 0.00;
+public static Scanner input = new Scanner(System.in);
+
+ 
 	public static void main(String... args){
-		options();
-		
+		options();	
 	}
+
 	public static void options(){
-	Scanner input = new Scanner(System.in);
-
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");	
-		System.out.println("WELCOME TO ESTHER'S ATM MACHINE");
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-
-		
+				
 		String  option = """
-		press
+		>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+		WELCOME TO ESTHER'S ATM MACHINE
+		>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+		Choose what you want to do from the options: 
 		1. create Account
 		2. close account
 		3. Deposit money
@@ -30,9 +31,9 @@ public class AtmMachine{
 
 
 		System.out.print("Enter option: ");
-		int number = input.nextInt();
+		int menu = input.nextInt();
 
-		switch(number) {
+		switch(menu) {
 			case 1: createAccount();
 			break;
 
@@ -49,7 +50,11 @@ public class AtmMachine{
 			break;
 			
 			case 6: transfer();
-			break;	
+			break;
+
+			case 7: changePin();
+			break;
+	
 
 			default: System.out.println("invalid");
 
@@ -57,22 +62,20 @@ public class AtmMachine{
 }
 
 	public static void createAccount(){
-		Scanner input = new Scanner(System.in);
 		Random random = new Random();
 	
-		System.out.print("Enter your first name: ");
-		String firstName = input.nextLine();
-
+		System.out.println("Enter your first name: ");
+		String firstName = input.next();
 
 		System.out.print("Enter your last name: ");
-		String lastName = input.nextLine();
+		String lastName = input.next();
 		
-		int accountNumber = random.nextInt(1, 11111);
+		int accountNumber = 1000000000 + random.nextInt(999999999);
 		System.out.println("This is your account number: " + accountNumber);
 
 		System.out.print("create a pin: ");
 		pin = input.nextInt();
-	
+		
 			
 		System.out.println("Account created successfully");
 		System.out.println("FirstName: " + firstName);
@@ -83,102 +86,122 @@ public class AtmMachine{
 
 	}
 	public static void nextTransaction(){
-	Scanner input = new Scanner(System.in);
-	System.out.print("Do you want to perform another transaction? ");
-		String userInput = input.nextLine();
+		System.out.print("Do you want to perform another transaction?(yes/no) ");
+		String userInput = input.next();
 		if(userInput.equalsIgnoreCase("yes")){
 			options();
-		}else if(userInput.equalsIgnoreCase("no")){
-		
+		}
+		else{
+			System.exit(0);
 		}
 
 	}
 
 	public static void closeAccount(){
+		System.out.print("Account name");
 		System.out.print("Account clossed");
 		nextTransaction();
 			
 	}
 
-
 	public static void depositAmount(){
-		double balance = 0;
-		Scanner input = new Scanner(System.in);
 
 		System.out.print("Enter your account number: ");
 		int accountNumber = input.nextInt();
 
 		System.out.print("Enter your pin: ");
-		pin = input.nextInt();
-
+		int userInput1 = input.nextInt();
+		if(pin != userInput1){
+			System.out.println("invalid pin ");
+			nextTransaction();
+		}
 		System.out.print("Enter the amount you want to deposit: $");
 		double depositAmount = input.nextDouble();
 		if(depositAmount > 0){
-			System.out.println("Deposit Successful");
-
 			balance = depositAmount + balance;
-			System.out.println("your balance is " + balance);
+			System.out.println("Deposit Successful");
+			System.out.println("your balance is $ " + balance);
 			nextTransaction();
-			
-	
 
 			}
 	}
 
-
 	public static void withdrawalAmount(){
-		Scanner input = new Scanner(System.in);
-		double withdrawAmount = 0;
+		double withdrawAmount = 0.00;
+
 		System.out.print("put your pin: ");
-		pin = input.nextInt();
-	
+		int userInput2 = input.nextInt();
+		if(pin != userInput2){
+			System.out.println("invalid pin ");
+		}else{
+
 		System.out.print("Enter the amount you want to withdraw: $");
 		withdrawAmount = input.nextDouble();
+		}
 			if(withdrawAmount > 0){
 				System.out.println("withdrawal Successful");
-				secondBalance = balance - withdrawAmount;
-				System.out.println("your Balance is " + secondBalance);
+				balance = balance - withdrawAmount;
+				System.out.println("your Balance is " + balance);
 				nextTransaction();
 			
 			}
 	}
 
 
-
-
-
 	public static void checkAccountBalance(){
-		Scanner input = new Scanner(System.in);
 	
 		System.out.println("Enter your pin");
-		pin = input.nextInt();
-		System.out.println("your account balance is: " + secondBalance);
-		nextTransaction();
+		int userInput3 = input.nextInt();
+		if(pin != userInput3){
+			System.out.println("invalid pin ");
+			nextTransaction();
 			
+		}else {
+			System.out.println("your account balance is: " + balance);
+		nextTransaction();
+		}	
 
 	}
 
-
-
 	public static void transfer(){
-		Scanner input = new Scanner(System.in);
 
-		System.out.print("How much do you want to transfer");
+		System.out.print("How much do you want to transfer: ");
 		double transferAmount = input.nextDouble();
-		if(transferAmount < 0){
-			double totalBalance = secondBalance - transferAmount;
-			System.out.print(totalBalance);
+
+		System.out.print("Enter your pin: ");
+		int userInput4 = input.nextInt();
+		if(pin != userInput4){
+			System.out.println("invalid pin ");
 			nextTransaction();
-			
+		}
+		if(transferAmount > balance){
+			System.out.println("insuficient balance");
+			nextTransaction();
+		}else if(transferAmount < balance){
+			 balance = balance - transferAmount;
+			System.out.println("your balance is: " + balance);
+			nextTransaction();
 			
 		}
 
 	}
-		
-		
 
-	
-	
+	public static void changePin(){
+		int newPin;
+		System.out.print("Enter previous pin: ");
+		int userInput5 = input.nextInt();
+		if(userInput5 != pin){
+			System.out.println("invalid pin");
+			nextTransaction();
+		}else if(userInput5 == pin){
+			System.out.print("create your new pin: ");
+			newPin = input.nextInt();
+			pin = newPin;
+			System.out.println("your new pin is: " + newPin);
+			nextTransaction();
+
+		}
+	}
 	
 }
 

@@ -1,13 +1,11 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+
 public class PeriodCalculator {
     public static void main(String... args) {
         Scanner input = new Scanner(System.in);
 	
-
-
-
 
 	System.out.println("PERIOD TRACKER APP");
 	System.out.println("Menstrual circle is a natuaral process. it is a complex circle controlled by female hormones that cause regular bleading(periods).");
@@ -15,12 +13,14 @@ public class PeriodCalculator {
 	System.out.println("");
 	System.out.println("");
 
+	int periodLength;
         String startDate;
+
 	System.out.println("How long do your period last?");
-        int periodLength = input.nextInt();
+        periodLength = input.nextInt();
 
         System.out.println("Enter the start date of your menstrual cycle (in dd/MM/yyyy format):");
-        startDate = input.nextLine();
+        startDate = input.next();
 		
 	System.out.println("Enter the cycle length: ");
 	int cycleLength = input.nextInt();
@@ -49,10 +49,11 @@ public class PeriodCalculator {
 			LocalDate fertilePeriodTwo = ovulationDate.plusDays(1);
 
 			LocalDate safePeriod = startDates.plusDays(14);
-		
+			System.out.println("Safe Period Days: " + startDates  + "-" +  safePeriod);	
 			System.out.println("Ovulation Day next Month: " +ovulationDate);
+			
 			System.out.println("fertile period is from:" + fertilePeriod + "-" + fertilePeriodTwo); 
-			System.out.println("Safe Period Days: " + startDates  + "-" +  safePeriod);
+			
 		
 	}
 }
